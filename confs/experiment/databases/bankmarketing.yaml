@@ -1,0 +1,43 @@
+_target_: CMC_utils.datasets.ClassificationDataset # DO NOT CHANGE
+_convert_: all # DO NOT CHANGE
+
+name: bankmarketing # Name of the dataset
+db_type: tabular # DO NOT CHANGE
+classes: [ "no", "yes" ] # List of the classes
+label_type: multiclass # multiclass or binary
+
+task: classification # DO NOT CHANGE
+
+path: ${data_path}/tabular/classification/bankmarketing/bank-additional-full.csv # Relative path to the file
+
+columns:  # Dictionary containing features names as keys and their types as values # DO NOT REMOVE
+  age:             int
+  job:             category
+  marital:         category
+  education:       category
+  default:         category
+  housing:         category
+  loan:            category
+  contact:         category
+  month:           category
+  day_of_week:     category
+  duration:        float
+  campaign:        float
+  pdays:           float
+  previous:        float
+  poutcome:        category
+  emp.var.rate:    float
+  cons.price.idx:  float
+  cons.conf.idx:   float
+  euribor3m:       float
+  nr.employed:     float
+  # Other features to be inserted
+  y:               target  # DO NOT CHANGE THE VALUE, NAME CORRECTLY THE TARGET VARIABLE
+
+pandas_load_kwargs:
+  header: 0
+  sep: ;
+
+dataset_class:  # DO NOT CHANGE
+  _target_: CMC_utils.datasets.SupervisedTabularDatasetTorch # DO NOT CHANGE
+  _convert_: all # DO NOT CHANGE

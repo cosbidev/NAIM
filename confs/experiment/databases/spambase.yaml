@@ -1,0 +1,79 @@
+_target_: CMC_utils.datasets.ClassificationDataset # DO NOT CHANGE
+_convert_: all # DO NOT CHANGE
+
+name: spambase # Name of the dataset
+db_type: tabular # DO NOT CHANGE
+classes: [ 0, 1 ] # List of the classes
+label_type: multiclass # multiclass or binary
+
+task: classification # DO NOT CHANGE
+
+path: ${data_path}/tabular/classification/spambase/spambase.data # Relative path to the file
+
+columns: # Dictionary containing features names as keys and their types as values # DO NOT REMOVE
+  word_freq_make:               float
+  word_freq_address:            float
+  word_freq_all:                float
+  word_freq_3d:                 float
+  word_freq_our:                float
+  word_freq_over:               float
+  word_freq_remove:             float
+  word_freq_internet:           float
+  word_freq_order:              float
+  word_freq_mail:               float
+  word_freq_receive:            float
+  word_freq_will:               float
+  word_freq_people:             float
+  word_freq_report:             float
+  word_freq_addresses:          float
+  word_freq_free:               float
+  word_freq_business:           float
+  word_freq_email:              float
+  word_freq_you:                float
+  word_freq_credit:             float
+  word_freq_your:               float
+  word_freq_font:               float
+  word_freq_000:                float
+  word_freq_money:              float
+  word_freq_hp:                 float
+  word_freq_hpl:                float
+  word_freq_george:             float
+  word_freq_650:                float
+  word_freq_lab:                float
+  word_freq_labs:               float
+  word_freq_telnet:             float
+  word_freq_857:                float
+  word_freq_data:               float
+  word_freq_415:                float
+  word_freq_85:                 float
+  word_freq_technology:         float
+  word_freq_1999:               float
+  word_freq_parts:              float
+  word_freq_pm:                 float
+  word_freq_direct:             float
+  word_freq_cs:                 float
+  word_freq_meeting:            float
+  word_freq_original:           float
+  word_freq_project:            float
+  word_freq_re:                 float
+  word_freq_edu:                float
+  word_freq_table:              float
+  word_freq_conference:         float
+  char_freq_;:                  float
+  char_freq_(:                  float
+  char_freq_[:                  float
+  char_freq_!:                  float
+  char_freq_$:                  float
+  char_freq_#:                  float
+  capital_run_length_average:   float
+  capital_run_length_longest:   float
+  capital_run_length_total:     float
+  # Other features to be inserted
+  Class:                        target  # DO NOT CHANGE THE VALUE, NAME CORRECTLY THE TARGET VARIABLE
+
+pandas_load_kwargs:
+  header:
+
+dataset_class: # DO NOT CHANGE
+  _target_: CMC_utils.datasets.SupervisedTabularDatasetTorch # DO NOT CHANGE
+  _convert_: all # DO NOT CHANGE

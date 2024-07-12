@@ -1,0 +1,36 @@
+_target_: CMC_utils.models.TrainManager
+
+min_epochs: ${dl_params.min_epochs}
+
+max_epochs: ${dl_params.max_epochs}
+
+performance_tolerance: ${dl_params.performance_tolerance}
+
+device: ${dl_params.device}
+
+verbose: ${verbose}
+
+verbose_batch: ${dl_params.verbose_batch}
+
+early_stop:
+  _target_: CMC_utils.models.EarlyStopper
+
+  patience: ${dl_params.early_stopping_patience}
+
+  min_epochs: ${dl_params.min_epochs}
+
+
+model_checkpoint:
+  _target_: CMC_utils.models.ModelCheckpointer
+
+
+scheduler:
+  _target_: CMC_utils.models.CustomScheduler
+
+  learning_rates: ${dl_params.learning_rates}
+
+  patience: ${dl_params.scheduler_patience}
+
+  verbose: ${verbose}
+
+  min_epochs: ${dl_params.min_epochs}

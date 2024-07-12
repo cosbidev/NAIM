@@ -1,0 +1,6 @@
+data_path: ./datasets # Path where the datasets are stored
+output_path: ./outputs # Path where the outputs will be saved
+
+defaults: # DO NOT CHANGE
+  - _self_ # DO NOT CHANGE
+  - experiment: classification # Experiment to perform, classification or classification_with_missing_generation

@@ -1,0 +1,29 @@
+method: no_imputation
+# Name of the method.
+
+# missing_values:
+# The placeholder for the missing values. All occurrences of missing_values will be imputed.
+# For pandas’ dataframes with nullable integer dtypes with missing values, missing_values
+# should be set to np.nan, since pd.NA will be converted to np.nan.
+
+features: all
+# Whether the imputer mask should represent all or a subset of features.
+# - If 'missing-only' (default), the imputer mask will only represent features containing missing values during fit time.
+# - If 'all', the imputer mask will represent all features.
+# Default = 'all'.
+
+sparse: auto
+# Whether the imputer mask format should be sparse or dense.
+# - If 'auto' (default), the imputer mask will be of same type as input.
+# - If True, the imputer mask will be a sparse matrix.
+# - If False, the imputer mask will be a numpy array.
+# Default = 'auto'.
+
+error_on_new: True
+# If True, transform will raise an error when there are features with missing values that have
+# no missing values in fit. This is applicable only when features='missing-only'.
+# Default = True.
+
+concat_mask: False # DO NOT CHANGE, added for compatibility
+# A boolean value to indicate whether to concatenate the mask to the data or not.
+# Default = False.

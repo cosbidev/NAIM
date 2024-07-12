@@ -1,0 +1,4 @@
+name: costant
+params: {}
+  # val:
+  # (float) – the value to fill the tensor with

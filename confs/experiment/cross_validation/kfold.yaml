@@ -1,0 +1,4 @@
+method: kfold
+n_splits: 5       # The number of splits to generate. Default is 5.
+shuffle: True    # A boolean value indicating whether to shuffle the data before splitting. Default is False.
+random_state: ${seed}

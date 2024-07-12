@@ -1,0 +1,6 @@
+name: l2
+
+init_params:
+  _target_: CMC_utils.regularizers.L2RegularizationLoss
+
+alpha: 1e-4

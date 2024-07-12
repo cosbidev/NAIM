@@ -1,0 +1,59 @@
+name: adaboost
+framework: sklearn
+model_type: tabular
+
+model_tasks:
+  - classification
+
+label_types:
+  - binary
+  - discrete
+
+set_params_function:
+  _target_: CMC_utils.models.set_adaboost_params
+
+init_params:
+  _target_: sklearn.ensemble.AdaBoostClassifier
+  _convert_: all
+
+  # The base estimator from which the boosted ensemble is built. Support for sample weighting is required, as well as proper classes_ and n_classes_ attributes. If None, then the base estimator is DecisionTreeClassifier initialized with max_depth=1.
+  # object, default=None
+  #estimator:
+    #_target_: sklearn.tree.DecisionTreeClassifier
+    #_convert_: all
+    #criterion: gini
+    #max_depth: 3
+    #random_state: ${seed}
+    #class_weight: balanced
+
+  n_estimators: ${ml_params.n_estimators}
+  # The maximum number of estimators at which boosting is terminated. In case of perfect fit, the learning procedure is stopped early. Values must be in the range [1, inf).
+  # int, default=50
+
+  learning_rate: 1.0
+  # Weight applied to each classifier at each boosting iteration. A higher learning rate increases the contribution of each classifier. There is a trade-off between the learning_rate and n_estimators parameters. Values must be in the range (0.0, inf).
+  # float, default=1.0
+
+  algorithm: SAMME.R
+  # If ‘SAMME.R’ then use the SAMME.R real boosting algorithm. estimator must support calculation of class probabilities. If ‘SAMME’ then use the SAMME discrete boosting algorithm. The SAMME.R algorithm typically converges faster than SAMME, achieving a lower test error with fewer boosting iterations.
+  # {‘SAMME’, ‘SAMME.R’}, default=’SAMME.R’
+
+  random_state: ${seed}
+  # Controls the random seed given at each estimator at each boosting iteration. Thus, it is only used when estimator exposes a random_state. Pass an int for reproducible output across multiple function calls. See Glossary.
+  # int, RandomState instance or None, default=None
+
+fit_params: {}
+
+train_function:
+  _target_: CMC_utils.models.train_sklearn_model
+
+test_function:
+  _target_: CMC_utils.models.test_sklearn_model
+
+save_function:
+  _target_: CMC_utils.save_load.save_model
+
+file_extension: pkl
+
+load_function:
+  _target_: CMC_utils.save_load.load_model

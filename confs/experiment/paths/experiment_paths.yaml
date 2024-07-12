@@ -1,0 +1,9 @@
+experiment: ${hydra:runtime.output_dir} # DO NOT REMOVE
+cv: ${hydra:runtime.output_dir}/cross_validation # DO NOT REMOVE
+preprocessing: # DO NOT REMOVE
+  numerical: ${hydra:runtime.output_dir}/preprocessing/numerical_preprocessing # DO NOT REMOVE
+  categorical: ${hydra:runtime.output_dir}/preprocessing/categorical_preprocessing # DO NOT REMOVE
+  imputer: ${hydra:runtime.output_dir}/preprocessing/imputer # DO NOT REMOVE
+model: ${hydra:runtime.output_dir}/saved_models # DO NOT REMOVE
+predictions: ${hydra:runtime.output_dir}/predictions # DO NOT REMOVE
+results: ${hydra:runtime.output_dir}/results # DO NOT REMOVE

@@ -1,0 +1,14 @@
+name: accuracy
+init:
+  _target_: CMC_utils.metrics.accuracy
+
+  normalize: True
+  # If False, return the number of correctly classified samples. Otherwise, return the fraction of correctly classified samples.
+  # bool, default=True
+
+  sample_weight:
+  # Sample weights.
+  # array-like of shape (n_samples,), default=None
+
+set_params_function:
+  _target_: CMC_utils.miscellaneous.do_nothing

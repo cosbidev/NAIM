@@ -1,0 +1,223 @@
+name: xgboost
+framework: sklearn
+model_type: tabular
+
+model_tasks:
+  - classification
+
+label_types:
+  - binary
+  - discrete
+
+set_params_function:
+  _target_: CMC_utils.models.set_xgboost_params
+
+init_params:
+  _target_: xgboost.XGBClassifier
+  _convert_: all
+
+  n_estimators: ${ml_params.n_estimators}
+  # Number of boosting rounds.
+  # int, default=100
+
+  max_depth:
+  # Maximum tree depth for base learners.
+  # int, default=None
+
+  max_leaves: 0
+  # Maximum number of leaves; 0 indicates no limit.
+  # int, default=0
+
+  max_bin:
+  # If using histogram-based algorithm, maximum number of bins per feature
+  # int, default=None
+
+  grow_policy:
+  # Tree growing policy.
+  # - 0: favor splitting at nodes closest to the node, i.e. grow depth-wise.
+  # - 1: favor splitting at nodes with highest loss change.
+
+  learning_rate: # ${dl_params.init_learning_rate}
+  # Boosting learning rate (xgb’s “eta”)
+  # float, default=None
+
+  verbosity: ${verbose}
+  # The degree of verbosity. Valid values are 0 (silent) - 3 (debug)
+  # int, default=0
+
+  objective: multi:softprob # survival:aft # multi:softprob
+  # Specify the learning task and the corresponding learning objective or a custom objective function to be used (see note below).
+  # Union[str, Callable[[numpy.ndarray, numpy.ndarray], Tuple[numpy.ndarray, numpy.ndarray]], NoneType], default=None
+
+  num_class:
+
+  booster: gbtree
+  # Specify which booster to use: gbtree, gblinear or dart.
+  # str, default=gbtree
+
+  tree_method: approx # auto, exact, approx, hist, gpu_hist
+  # Specify which tree method to use. Default to auto. If this parameter is set to default, XGBoost will choose the most conservative option available.
+  # It’s recommended to study this option from the parameters document tree method
+  # str, default=auto
+
+  n_jobs: 1
+  # Number of parallel threads used to run xgboost. When used with other Scikit-Learn algorithms like grid search,
+  # you may choose which algorithm to parallelize and balance the threads. Creating thread contention will significantly slow down both algorithms.
+  # int, default=None
+
+  gamma:
+  # Minimum loss reduction required to make a further partition on a leaf node of the tree.
+  # float, default=None
+
+  min_child_weight:
+  # Minimum sum of instance weight(hessian) needed in a child.
+  # float, default=None
+
+  max_delta_step:
+  # Maximum delta step we allow each tree’s weight estimation to be.
+  # float, default=None
+
+  subsample:
+  # Subsample ratio of the training instance.
+  # float, default=None
+
+  sampling_method:
+  # Sampling method. Used only by gpu_hist tree method.
+  # - uniform: select random training instances uniformly.
+  # - gradient_based: select random training instances with higher probability when the gradient and hessian are larger. (cf. CatBoost)
+  # str, default=None
+
+  colsample_bytree:
+  # Subsample ratio of columns when constructing each tree.
+  # float, default=None
+
+  colsample_bylevel:
+  # Subsample ratio of columns for each level.
+  # float, default=None
+
+  colsample_bynode:
+  # Subsample ratio of columns for each split.
+  # float, default=None
+
+  reg_alpha:
+  # L1 regularization term on weights (xgb’s alpha).
+  # float, default=None
+
+  reg_lambda:
+  # L2 regularization term on weights (xgb’s lambda).
+  # float, default=None
+
+  scale_pos_weight:
+  # Balancing of positive and negative weights.
+  # float, default=None
+
+  base_score:
+  # The initial prediction score of all instances, global bias.
+  # float, default=None
+
+  random_state: ${seed}
+  # Random number seed.
+  # int, default=None
+
+  # missing:
+  # Value in the data which needs to be present as a missing value.
+  # float, default=None
+
+  num_parallel_tree:
+  # Used for boosting random forest.
+  # int, default=None
+
+  monotone_constraints:
+  # Constraint of variable monotonicity. See tutorial for more information.
+  # Union[Dict[str, int], str], default=None
+
+  interaction_constraints:
+  # Constraints for interaction representing permitted interactions. The constraints must be specified in the form of a
+  # nested list, e.g. [[0, 1], [2, 3, 4]], where each inner list is a group of indices of features that are allowed to
+  # interact with each other. See tutorial for more information
+  # Union[str, List[Tuple[str]]], default=None
+
+  importance_type:
+  # The feature importance type for the feature_importances_ property:
+  # For tree model, it’s either “gain”, “weight”, “cover”, “total_gain” or “total_cover”.
+  # For linear model, only “weight” is defined and it’s the normalized coefficients without bias.
+  # str, default=None
+
+  gpu_id:
+  # Device ordinal.
+  # int
+
+  validate_parameters:
+  # Give warnings for unknown parameter.
+  # bool, default=None
+
+  predictor:
+  # Force XGBoost to use specific predictor, available choices are [cpu_predictor, gpu_predictor].
+  # str, default=None
+
+  enable_categorical: true
+  # Experimental support for categorical data. When enabled, cudf/pandas.DataFrame should be used to specify
+  # categorical data type. Also, JSON/UBJSON serialization format is required.
+  # bool, default=None
+
+  feature_types:
+  # Used for specifying feature types without constructing a dataframe. See DMatrix for details.
+  # Set types for features. When enable_categorical is set to True, string “c” represents categorical data type while “q”
+  # represents numerical feature type. For categorical features, the input is assumed to be preprocessed and encoded by
+  # the users. The encoding can be done via sklearn.preprocessing.OrdinalEncoder or pandas dataframe .cat.codes method.
+  # This is useful when users want to specify categorical features without having to construct a dataframe as input.
+
+  max_cat_to_onehot:
+  # A threshold for deciding whether XGBoost should use one-hot encoding based split for categorical data. When number
+  # of categories is lesser than the threshold then one-hot encoding is chosen, otherwise the categories will be
+  # partitioned into children nodes. Also, enable_categorical needs to be set to have categorical feature support.
+  # See Categorical Data and Parameters for Categorical Feature for details.
+  # int, default=None
+
+  max_cat_threshold:
+  # Maximum number of categories considered for each split. Used only by partition-based splits for preventing over-fitting.
+  # Also, enable_categorical needs to be set to have categorical feature support. See Categorical Data and Parameters for Categorical Feature for details.
+  # int, default=None
+
+  eval_metric: mlogloss # mlogloss # aft-nloglik
+  # Metric used for monitoring the training result and early stopping. It can be a string or list of strings as names of
+  # predefined metric in XGBoost (See doc/parameter.rst), one of the metrics in sklearn.metrics, or any other user defined metric that looks like sklearn.metrics.
+  # If custom objective is also provided, then custom metric should implement the corresponding reverse link function.
+  # Unlike the scoring parameter commonly used in scikit-learn, when a callable object is provided, it’s assumed to be a
+  # cost function and by default XGBoost will minimize the result during early stopping.
+  # For advanced usage on Early stopping like directly choosing to maximize instead of minimize, see xgboost.callback.EarlyStopping.
+  # See Custom Objective and Evaluation Metric for more.
+  #  (Optional[Union[str, List[str], Callable]])
+
+  early_stopping_rounds: ${dl_params.early_stopping_patience}
+  # Activates early stopping. Validation metric needs to improve at least once in every early_stopping_rounds round(s)
+  # to continue training. Requires at least one item in eval_set in fit().
+  # The method returns the model from the last iteration (not the best one). If there’s more than one item in eval_set,
+  # the last entry will be used for early stopping. If there’s more than one metric in eval_metric, the last metric will be used for early stopping.
+  # If early stopping occurs, the model will have three additional fields: best_score, best_iteration and best_ntree_limit.
+  # int, default=None
+
+  callbacks:
+  # List of callback functions that are applied at end of each iteration. It is possible to use predefined callbacks by using Callback API.
+  # (Optional[List[TrainingCallback]])
+
+fit_params:
+  eval_set:
+  # A list of (X, y) tuple pairs to use as validation sets, for which metrics will be computed. Validation metrics will help us track the performance of the model.
+  # (Sequence[Tuple[Any, Any]] | None), default=None
+
+  verbose: ${verbose}
+
+train_function:
+  _target_: CMC_utils.models.train_sklearn_model
+
+test_function:
+  _target_: CMC_utils.models.test_sklearn_model
+
+save_function:
+  _target_: CMC_utils.save_load.save_xgboost_model
+
+file_extension: json
+
+load_function:
+  _target_: CMC_utils.save_load.load_xgboost_model

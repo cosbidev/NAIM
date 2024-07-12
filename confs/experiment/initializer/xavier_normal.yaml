@@ -1,0 +1,4 @@
+name: xavier_normal
+params:
+  gain: 1.0
+  # (float) – an optional scaling factor

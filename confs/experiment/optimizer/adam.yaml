@@ -1,0 +1,30 @@
+name: adam
+init:
+  _target_: torch.optim.Adam
+
+  # lr: ${dl_params.init_learning_rate} # it is assigned by the scheduler during training #
+  # (float, optional) – learning rate (default: 1e-3)
+
+  betas: [ 0.9, 0.999 ]
+  # (Tuple[float, float], optional) – coefficients used for computing running averages of gradient and its square (default: (0.9, 0.999))
+
+  eps: 1e-8
+  # (float, optional) – term added to the denominator to improve numerical stability (default: 1e-8)
+
+  weight_decay: 0
+  # (float, optional) – weight decay (L2 penalty) (default: 0)
+
+  amsgrad: False
+  # (bool, optional) – whether to use the AMSGrad variant of this algorithm from the paper On the Convergence of Adam and Beyond (default: False)
+
+  foreach:
+  # (bool, optional) – whether foreach implementation of optimizer is used (default: None)
+
+  maximize: False
+  # (bool, optional) – maximize the params based on the objective, instead of minimizing (default: False)
+
+  capturable: False
+  # (bool, optional) – whether this instance is safe to capture in a CUDA graph. Passing True can impair ungraphed performance, so if you don’t intend to graph capture this instance, leave it False (default: False)
+
+  # fused: False
+  # (bool, optional) – whether fused implementation of optimizer is used. Currently, torch.float64, torch.float32, torch.float16, and torch.bfloat16 are supported. (default: False)

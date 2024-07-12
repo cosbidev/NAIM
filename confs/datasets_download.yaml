@@ -1,0 +1,14 @@
+data_path: ./datasets # Path where the datasets will be saved
+output_path: ./outputs # Path where the output log file will be saved
+
+experiment_name: datasets_download # DO NOT CHANGE
+
+defaults: # DO NOT CHANGE
+  - _self_ # DO NOT CHANGE
+  - experiment/paths@: default # DO NOT CHANGE
+
+  - experiment/databases@dbs.adult: adult # COMMENT THIS LINE IF YOU DON'T WANT TO DOWNLOAD THE DATASET
+  - experiment/databases@dbs.bankmarketing: bankmarketing # COMMENT THIS LINE IF YOU DON'T WANT TO DOWNLOAD THE DATASET
+  - experiment/databases@dbs.onlineshoppers: onlineshoppers # COMMENT THIS LINE IF YOU DON'T WANT TO DOWNLOAD THE DATASET
+  - experiment/databases@dbs.seismicbumps: seismicbumps # COMMENT THIS LINE IF YOU DON'T WANT TO DOWNLOAD THE DATASET
+  - experiment/databases@dbs.spambase: spambase # COMMENT THIS LINE IF YOU DON'T WANT TO DOWNLOAD THE DATASET

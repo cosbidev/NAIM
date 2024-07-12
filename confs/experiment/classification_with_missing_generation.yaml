@@ -1,0 +1,51 @@
+# @package _global_
+
+experiment_name: ${db.name}_${model.name}_${preprocessing.imputer.method}_with_missing_generation # DO NOT CHANGE
+pipeline: missing # DO NOT CHANGE
+
+seed: 42 # Seed for randomness control
+verbose: 1 # 0 or 1, verbosity of the training
+
+continue_experiment: False # True or False, if the experiment should be continued from where it was interrupted
+
+missing_percentages: [0.0, 0.05, 0.1, 0.25, 0.5, 0.75]
+
+defaults: # DO NOT CHANGE
+  - _self_ # DO NOT CHANGE
+  - paths@: default # DO NOT CHANGE
+  - paths: experiment_paths # DO NOT CHANGE
+
+  - databases@db: adult # Name of the configuration file of the dataset
+
+  - cross_validation@test_cv: stratifiedkfold # Cross-validation strategy for the test set
+  - cross_validation@val_cv: holdout          # Cross-validation strategy for the validation set
+
+  - preprocessing/missing_generation@missing_generation.train: MCAR_global # DO NOT CHANGE
+  - preprocessing/missing_generation@missing_generation.val: no_generation # DO NOT CHANGE
+  - preprocessing/missing_generation@missing_generation.test: MCAR_global  # DO NOT CHANGE
+
+  - preprocessing/numerical: normalize # normalize or standardize
+  - preprocessing/categorical: categorical_encode # categorical_encode or one_hot_encode
+  - preprocessing/imputer: no_imputation # simple or knn or iterative or no_imputation
+
+  - model_type_params@dl_params: dl_params # DO NOT CHANGE
+  - model_type_params@ml_params: ml_params # DO NOT CHANGE
+
+  - model: naim # Name of the model to use
+
+  - model_type_params@train.dl_params: dl_params # DO NOT CHANGE
+
+  - initializer@train.initializer: xavier_normal # DO NOT CHANGE
+  - loss@train.loss.CE: cross_entropy             # DO NOT CHANGE
+  - regularizer@train.regularizer.l1: l1          # DO NOT CHANGE
+  - regularizer@train.regularizer.l2: l2          # DO NOT CHANGE
+  - optimizer@train.optimizer: adam               # DO NOT CHANGE
+  - train_utils@train.manager: train_manager      # DO NOT REMOVE
+
+  - metric@train.set_metrics.auc: auc # Metric to use for the early stopping
+
+  - metric@performance_metrics.auc: auc # Metric to use for the performance evaluation
+  - metric@performance_metrics.accuracy: accuracy # Metric to use for the performance evaluation
+  - metric@performance_metrics.recall: recall # Metric to use for the performance evaluation
+  - metric@performance_metrics.precision: precision # Metric to use for the performance evaluation
+  - metric@performance_metrics.f1_score: f1_score # Metric to use for the performance evaluation

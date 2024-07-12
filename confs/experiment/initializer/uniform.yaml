@@ -1,0 +1,7 @@
+name: uniform
+params:
+
+  a: 0.0
+  # (float) – the lower bound of the uniform distribution
+  b: 1.0
+  # (float) – the upper bound of the uniform distribution

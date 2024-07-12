@@ -1,0 +1,39 @@
+method: simple
+# Name of the method.
+
+# missing_values:
+# The placeholder for the missing values. All occurrences of missing_values will be imputed.
+# For pandas’ dataframes with nullable integer dtypes with missing values, missing_values
+# should be set to np.nan, since pd.NA will be converted to np.nan.
+
+strategy: mean
+# The imputation strategy.
+# - If “mean”, then replace missing values using the mean along each column. Can only be used with numeric data.
+# - If “median”, then replace missing values using the median along each column. Can only be used with numeric data.
+# - If “most_frequent”, then replace missing using the most frequent value along each column. Can be used with strings or numeric data. If there is more than one such value, only the smallest is returned.
+# - If “constant”, then replace missing values with fill_value. Can be used with strings or numeric data.
+# Default = 'mean'.
+
+fill_value:
+# When strategy == “constant”, fill_value is used to replace all occurrences of missing_values.
+# For string or object data types, fill_value must be a string. If None, fill_value will be 0
+# when imputing numerical data and “missing_value” for strings or object data types.
+# Default = None.
+
+copy: True
+# If True, a copy of X will be created. If False, imputation will be done in-place whenever possible. Note that, in the following cases, a new copy will always be made, even if copy=False:
+# - If X is not an array of floating values;
+# - If X is encoded as a CSR matrix;
+# - If add_indicator=True.
+# Default = True.
+
+add_indicator: False
+# If True, a MissingIndicator transform will stack onto output of the imputer’s transform.
+# This allows a predictive estimator to account for missingness despite imputation.
+# If a feature has no missing values at fit/train time, the feature won’t appear on the missing
+# indicator even if there are missing values at transform/test time.
+# Default = False.
+
+concat_mask: False
+# A boolean value to indicate whether to concatenate the mask to the data or not.
+# Default = False.

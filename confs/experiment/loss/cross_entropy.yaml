@@ -1,0 +1,8 @@
+name: cross_entropy
+init_params:
+  _target_: torch.nn.CrossEntropyLoss
+
+set_params_function:
+  _target_: CMC_utils.miscellaneous.do_nothing
+
+alpha: 1

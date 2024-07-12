@@ -1,0 +1,14 @@
+name: trunc_normal
+params:
+
+  mean: 0.0
+  # (float) – the mean of the normal distribution
+
+  std: 1.0
+  # (float) – the standard deviation of the normal distribution
+
+  a: -2.0
+  #(float) – the minimum cutoff value
+
+  b: 2.0
+  # (float) – the maximum cutoff value

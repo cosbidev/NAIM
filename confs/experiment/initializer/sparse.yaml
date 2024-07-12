@@ -1,0 +1,7 @@
+name: sparse
+params:
+  sparsity: 0.1
+  # The fraction of elements in each column to be set to zero
+
+  std: 1.0
+  # the standard deviation of the normal distribution used to generate the non-zero values

@@ -1,0 +1,4 @@
+name: orthogonal
+params:
+  gain: 1
+  # optional scaling factor

@@ -1,0 +1,23 @@
+max_epochs: 1500 # Maximum number of epochs
+
+min_epochs: 50 # Warm-up number of epochs
+
+batch_size: 32 # Batch size
+
+init_learning_rate: 1e-3 # Initial learning rate
+
+end_learning_rate: 1e-8 # Final learning rate
+
+learning_rates: [1e-3, 1e-4, 1e-5, 1e-6, 1e-7] # Learning rates for the scheduler
+
+early_stopping_patience: 50 # Patience for the early stopping
+
+scheduler_patience: 25 # Patience for the scheduler
+
+performance_tolerance: 1e-3 # Tolerance for the performance improvement
+
+verbose: ${verbose} # DO NOT CHANGE
+
+verbose_batch: 0 # 0 or 1 or ${verbose}, verbosity of the training for the batch
+
+device: cuda # cpu or cuda, device to use for training

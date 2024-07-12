@@ -1,0 +1,4 @@
+method: standardize
+axis: 0
+
+all_columns: False

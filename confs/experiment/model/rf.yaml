@@ -1,0 +1,117 @@
+name: rf
+framework: sklearn
+model_type: tabular
+
+model_tasks:
+  - classification
+
+label_types:
+  - binary
+  - discrete
+
+set_params_function:
+  _target_: CMC_utils.miscellaneous.do_nothing
+
+init_params:
+  _target_: sklearn.ensemble.RandomForestClassifier
+  _convert_: all
+
+  n_estimators: ${ml_params.n_estimators}
+  # The number of trees in the forest.
+  # int, default=100
+
+  criterion: gini
+  # The function to measure the quality of a split. Supported criteria are “gini” for the Gini impurity and “log_loss” and “entropy” both for the Shannon information gain, see Mathematical formulation. Note: This parameter is tree-specific.
+  # {“gini”, “entropy”, “log_loss”}, default=”gini”
+
+  max_depth:
+  # The maximum depth of the tree. If None, then nodes are expanded until all leaves are pure or until all leaves contain less than min_samples_split samples.
+  # int, default=None
+
+  min_samples_split: 2
+  # The minimum number of samples required to split an internal node:
+  # int or float, default=2
+  # - If int, then consider min_samples_split as the minimum number.
+  # - If float, then min_samples_split is a fraction and ceil(min_samples_split * n_samples) are the minimum number of samples for each split.
+
+  min_samples_leaf: 1
+  # The minimum number of samples required to be at a leaf node. A split point at any depth will only be considered if it leaves at least min_samples_leaf training samples in each of the left and right branches. This may have the effect of smoothing the model, especially in regression.
+  # int or float, default=1
+  # - If int, then consider min_samples_leaf as the minimum number.
+  # - If float, then min_samples_leaf is a fraction and ceil(min_samples_leaf * n_samples) are the minimum number of samples for each node.
+
+  min_weight_fraction_leaf: 0.0
+  # The minimum weighted fraction of the sum total of weights (of all the input samples) required to be at a leaf node. Samples have equal weight when sample_weight is not provided.
+  # float, default=0.0
+
+  max_leaf_nodes:
+  # Grow trees with max_leaf_nodes in best-first fashion. Best nodes are defined as relative reduction in impurity. If None then unlimited number of leaf nodes.
+  # int, default=None
+
+  min_impurity_decrease: 0.0
+  # A node will be split if this split induces a decrease of the impurity greater than or equal to this value.
+  # float, default=0.0
+  # The weighted impurity decrease equation is the following:
+  # N_t / N * (impurity - N_t_R / N_t * right_impurity - N_t_L / N_t * left_impurity)
+  # where N is the total number of samples, N_t is the number of samples at the current node, N_t_L is the number of samples in the left child, and N_t_R is the number of samples in the right child.
+  # N, N_t, N_t_R and N_t_L all refer to the weighted sum, if sample_weight is passed.
+
+  bootstrap: True
+  # Whether bootstrap samples are used when building trees. If False, the whole dataset is used to build each tree.
+  # bool, default=True
+
+  oob_score: False
+  # Whether to use out-of-bag samples to estimate the generalization score. Only available if bootstrap=True.
+  # bool, default=False
+
+  n_jobs:
+  # The number of jobs to run in parallel. fit, predict, decision_path and apply are all parallelized over the trees. None means 1 unless in a joblib.parallel_backend context. -1 means using all processors. See Glossary for more details.
+  # int, default=None
+
+  random_state: ${seed}
+  # Controls both the randomness of the bootstrapping of the samples used when building trees (if bootstrap=True) and the sampling of the features to consider when looking for the best split at each node (if max_features < n_features). See Glossary for details.
+  # int, RandomState instance or None, default=None
+
+  verbose: ${verbose}
+  # Controls the verbosity when fitting and predicting.
+  # int, default=0
+
+  warm_start: False
+  # When set to True, reuse the solution of the previous call to fit and add more estimators to the ensemble, otherwise, just fit a whole new forest. See Glossary and Fitting additional weak-learners for details.
+  # bool, default=False
+
+  class_weight: balanced
+  # Weights associated with classes in the form {class_label: weight}. If not given, all classes are supposed to have weight one. For multi-output problems, a list of dicts can be provided in the same order as the columns of y.
+  # {“balanced”, “balanced_subsample”}, dict or list of dicts, default=None
+  # Note that for multioutput (including multilabel) weights should be defined for each class of every column in its own dict. For example, for four-class multilabel classification weights should be [{0:1, 1:1}, {0:1, 1:5}, {0:1, 1:1}, {0:1, 1: 1}] instead of [{1:1}, {2:5}, {3:1}, {4:1}].
+  # The “balanced” mode uses the values of y to automatically adjust weights inversely proportional to class frequencies in the input data as n_samples / (n_classes * np.bincount(y))
+  # The “balanced_subsample” mode is the same as “balanced” except that weights are computed based on the bootstrap sample for every tree grown.
+  # For multi-output, the weights of each column of y will be multiplied.
+  # Note that these weights will be multiplied with sample_weight (passed through the fit method) if sample_weight is specified.
+
+  ccp_alpha: 0.0
+  # Complexity parameter used for Minimal Cost-Complexity Pruning. The subtree with the largest cost complexity that is smaller than ccp_alpha will be chosen. By default, no pruning is performed. See Minimal Cost-Complexity Pruning for details.
+  # non-negative float, default=0.0
+
+  max_samples:
+  # If bootstrap is True, the number of samples to draw from X to train each base estimator.
+  # int or float, default=None
+  # - If None (default), then draw X.shape[0] samples.
+  # - If int, then draw max_samples samples.
+  # - If float, then draw max_samples * X.shape[0] samples. Thus, max_samples should be in the interval (0.0, 1.0].
+
+fit_params: {}
+
+train_function:
+  _target_: CMC_utils.models.train_sklearn_model
+
+test_function:
+  _target_: CMC_utils.models.test_sklearn_model
+
+save_function:
+  _target_: CMC_utils.save_load.save_model
+
+file_extension: pkl
+
+load_function:
+  _target_: CMC_utils.save_load.load_model

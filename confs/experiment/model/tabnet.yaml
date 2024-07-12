@@ -1,0 +1,193 @@
+name: tabnet
+framework: sklearn
+model_type: tabular
+
+model_tasks:
+  - classification
+
+label_types:
+  - binary
+  - discrete
+
+set_params_function:
+  _target_: CMC_utils.models.set_tabnet_params
+
+init_params:
+  _target_: pytorch_tabnet.tab_model.TabNetClassifier
+  _convert_: all
+
+  n_d: 8
+  # Width of the decision prediction layer. Bigger values gives more capacity to the model with the risk of overfitting. Values typically range from 8 to 64.
+  # int (default=8)
+
+  n_a: 8
+  # Width of the attention embedding for each mask. According to the paper n_d=n_a is usually a good choice. (default=8)
+  # int (default=8)
+
+  n_steps: 3
+  # Number of steps in the architecture (usually between 3 and 10)
+  # int (default=3)
+
+  gamma: 1.3
+  # This is the coefficient for feature reusage in the masks. A value close to 1 will make mask selection least correlated between layers. Values range from 1.0 to 2.0.
+  # float (default=1.3)
+
+  cat_idxs: []
+  # List of categorical features indices.
+  # list of int (default=[] - Mandatory for embeddings)
+
+  cat_dims: []
+  # List of categorical features number of modalities (number of unique values for a categorical feature) /!\ no new modalities can be predicted
+  # list of int (default=[] - Mandatory for embeddings)
+
+  cat_emb_dim: 1
+  # List of embeddings size for each categorical features. (default =1)
+  # list of int (optional)
+
+  n_independent: 2
+  # Number of independent Gated Linear Units layers at each step. Usual values range from 1 to 5.
+  # int (default=2)
+
+  n_shared: 2
+  # Number of shared Gated Linear Units at each step Usual values range from 1 to 5
+  # int (default=2)
+
+  epsilon: 1e-15
+  # Should be left untouched.
+  # float (default 1e-15)
+
+  seed: ${seed}
+  # Random seed for reproducibility
+  # int (default=0)
+
+  momentum: 0.02
+  # Momentum for batch normalization, typically ranges from 0.01 to 0.4 (default=0.02)
+  # float, default=0.02
+
+  clip_value:
+  # If a float is given this will clip the gradient at clip_value.
+  # float (default None)
+
+  lambda_sparse: 1e-3
+  # This is the extra sparsity loss coefficient as proposed in the original paper. The bigger this coefficient is, the sparser your model will be in terms of feature selection. Depending on the difficulty of your problem, reducing this value could help.
+  # float (default = 1e-3)
+
+  # optimizer_fn: torch.optim.Adam
+  # Pytorch optimizer function
+  # torch.optim (default=torch.optim.Adam)
+
+  optimizer_params:
+    lr: ${dl_params.init_learning_rate}
+  # Parameters compatible with optimizer_fn used initialize the optimizer. Since we have Adam as our default optimizer, we use this to define the initial learning rate used for training. As mentionned in the original paper, a large initial learning rate of 0.02 with decay is a good option.
+  # dict (default=dict(lr=2e-2))
+
+  scheduler_fn:
+  # Pytorch Scheduler to change learning rates during training.
+  # torch.optim.lr_scheduler (default=None)
+
+  scheduler_params:
+    gamma: 0.95
+    step_size: 10
+  # Dictionnry of parameters to apply to the scheduler_fn. Ex: { ”gamma”: 0.95, “step_size”: 10 }
+  # dict
+
+  # model_name: DreamQuarkTabNet
+  # Name of the model used for saving in disk, you can customize this to easily retrieve and reuse your trained models.
+  # str (default = ‘DreamQuarkTabNet’)
+
+  verbose: ${verbose}
+  # Verbosity for notebooks plots, set to 1 to see every epoch, 0 to get None.
+  # int (default=1)
+
+  device_name: auto
+  # str (default=’auto’) ‘cpu’ for cpu training, ‘gpu’ for gpu training, ‘auto’ to automatically detect gpu.
+
+  mask_type: sparsemax
+  # str (default=’sparsemax’) Either “sparsemax” or “entmax”: this is the masking function to use for selecting features.
+
+  # n_shared_decoder: 1
+  # Number of shared GLU block in decoder, this is only useful for TabNetPretrainer.
+  # int (default=1)
+
+  # n_indep_decoder: 1
+  # Number of independent GLU block in decoder, this is only useful for TabNetPretrainer.
+  # int (default=1)
+
+#############################################
+fit_params:
+  eval_set:
+  # List of eval tuple set (X, y).
+  # The last one is used for early stopping
+  # list of tuple
+
+  eval_name:
+  # List of eval set names.
+  # list of str
+
+  eval_metric:
+  # List of evaluation metrics.
+  # The last metric is used for early stopping.
+  # list of str
+
+  max_epochs: ${dl_params.max_epochs}
+  # Maximum number of epochs for trainng.
+  # int (default = 200)
+
+  patience: ${dl_params.early_stopping_patience}
+  # Number of consecutive epochs without improvement before performing early stopping.
+  # If patience is set to 0, then no early stopping will be performed.
+  # Note that if patience is enabled, then best weights from best epoch will automatically be loaded at the end of fit.
+  # int (default = 10)
+
+  weights: 0
+  # /!\ Only for TabNetClassifier Sampling parameter 0:
+  #  no sampling 1:
+  #    automated sampling with inverse class occurrences dict: keys are classes, values are weights for each class
+  # int or dict (default=0)
+
+  loss_fn:
+  # Loss function for training (default to mse for regression and cross entropy for classification) When using TabNetMultiTaskClassifier you can set a list of same length as number of tasks, each task will be assigned its own loss function
+  # torch.loss or list of torch.loss
+
+  batch_size: ${dl_params.batch_size}
+  # Number of examples per batch. Large batch sizes are recommended.
+  # int (default=1024)
+
+  virtual_batch_size: 128
+  # Size of the mini batches used for “Ghost Batch Normalization”. /!\ virtual_batch_size should divide batch_size
+  # int (default=128)
+
+  num_workers: 0
+  # Number or workers used in torch.utils.data.Dataloader
+  # int (default=0)
+
+  drop_last: False
+  # Whether to drop last batch if not complete during training
+  # bool (default=False)
+
+  # callbacks:
+  #List of custom callbacks
+  # list of callback function
+
+  # pretraining_ratio:
+  # /!\ TabNetPretrainer Only : Percentage of input features to mask during pretraining.
+  # Should be between 0 and 1. The bigger the harder the reconstruction task is.
+  # float
+
+  # warm_start: False
+  # In order to match scikit-learn API, this is set to False. It allows to fit twice the same model and start from a warm start.
+  # bool (default=False)
+
+train_function:
+  _target_: CMC_utils.models.train_sklearn_model
+
+test_function:
+  _target_: CMC_utils.models.test_sklearn_model
+
+save_function:
+  _target_: CMC_utils.save_load.save_model
+
+file_extension: pth
+
+load_function:
+  _target_: CMC_utils.save_load.load_model

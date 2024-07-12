@@ -1,0 +1,10 @@
+# @package _global_
+hydra: # DO NOT REMOVE
+  job: # DO NOT REMOVE
+    name: ${experiment_name} # DO NOT REMOVE
+    chdir: False # DO NOT REMOVE
+  run: # DO NOT REMOVE
+    dir: ${output_path}/${hydra.job.name} # DO NOT REMOVE
+  sweep: # DO NOT REMOVE
+    dir: ${output_path}/${hydra.job.name} # DO NOT REMOVE
+    subdir: '' # DO NOT REMOVE

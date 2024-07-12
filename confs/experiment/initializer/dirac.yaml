@@ -1,0 +1,4 @@
+name: dirac
+params:
+  groups: 1
+  # (int, optional) – number of groups in the conv layer (default: 1)

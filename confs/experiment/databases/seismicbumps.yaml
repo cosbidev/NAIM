@@ -1,0 +1,40 @@
+_target_: CMC_utils.datasets.ClassificationDataset # DO NOT CHANGE
+_convert_: all # DO NOT CHANGE
+
+name: seismicbumps # Name of the dataset
+db_type: tabular # DO NOT CHANGE
+classes: [ 0, 1 ] # List of the classes
+label_type: multiclass # multiclass or binary
+
+task: classification # DO NOT CHANGE
+
+path: ${data_path}/tabular/classification/seismicbumps/seismic-bumps.arff # Relative path to the file
+
+columns: # Dictionary containing features names as keys and their types as values # DO NOT REMOVE
+  seismic:          category
+  seismoacoustic:   category
+  shift:            category
+  genergy:          float
+  gpuls:            float
+  gdenergy:         float
+  gdpuls:           float
+  ghazard:          category
+  nbumps:           float
+  nbumps2:          float
+  nbumps3:          float
+  nbumps4:          float
+  nbumps5:          float
+  nbumps6:          float
+  nbumps7:          float
+  nbumps89:         float
+  energy:           float
+  maxenergy:        float
+  # Other features to be inserted
+  Class:            target  # DO NOT CHANGE THE VALUE, NAME CORRECTLY THE TARGET VARIABLE
+
+pandas_load_kwargs:
+  skiprows: 154
+
+dataset_class: # DO NOT CHANGE
+  _target_: CMC_utils.datasets.SupervisedTabularDatasetTorch # DO NOT CHANGE
+  _convert_: all # DO NOT CHANGE

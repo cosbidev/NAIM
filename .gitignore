@@ -1,0 +1,9 @@
+*.DS_Store
+*.pyc
+*.err
+*.out
+.idea
+*__pycache__
+/bash
+/docs
+requirements_bkp.txt

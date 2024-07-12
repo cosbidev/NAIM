@@ -1,0 +1,6 @@
+name: l1
+
+init_params:
+  _target_: CMC_utils.regularizers.L1RegularizationLoss
+
+alpha: 1e-4

@@ -1,0 +1,64 @@
+name: naim
+framework: torch
+model_type: tabular
+is_SOTA: False
+
+model_tasks:
+  - classification
+
+label_types:
+  - binary
+  - categorical
+
+set_params_function:
+  _target_: CMC_utils.models.set_naim_params
+
+init_params:
+  _target_: CMC_utils.models.NAIM
+  _convert_: all
+
+  input_size:
+
+  output_size:
+
+  cat_idxs:
+
+  cat_dims:
+
+  d_token: 6
+
+  embedder_initialization: normal
+
+  bias: False  # True
+
+  mask_type: 2
+
+  missing_value: ~inf
+
+  num_heads: 3
+
+  feedforward_dim: 1000
+
+  dropout_rate: 0.0
+
+  activation: relu
+
+  num_layers: 6
+
+  extractor: False
+
+fit_params: {}
+
+train_function:
+  _target_: CMC_utils.models.train_torch_model
+
+test_function:
+  _target_: CMC_utils.models.test_torch_model
+
+save_function:
+  _target_: CMC_utils.save_load.save_model
+
+file_extension: pth
+
+load_function:
+  _target_: CMC_utils.save_load.load_model

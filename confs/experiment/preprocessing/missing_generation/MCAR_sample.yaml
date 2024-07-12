@@ -1,0 +1,2 @@
+method: MCAR_sample
+missing_fraction: 0.25

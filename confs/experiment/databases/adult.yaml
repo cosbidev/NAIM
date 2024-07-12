@@ -1,0 +1,37 @@
+_target_: CMC_utils.datasets.ClassificationDataset # DO NOT CHANGE
+_convert_: all # DO NOT CHANGE
+
+name: adult # Name of the dataset
+db_type: tabular # DO NOT CHANGE
+classes: [ "<=50K", ">50K" ] # List of the classes
+label_type: multiclass # multiclass or binary
+
+task: classification # DO NOT CHANGE
+
+path: ${data_path}/tabular/classification/adult/adult.data # Relative path to the file
+
+columns: # Dictionary containing features names as keys and their types as values # DO NOT REMOVE
+  age:            int
+  workclass:      category
+  fnlwgt:         int
+  education:      category
+  education-num:  int
+  marital-status: category
+  occupation:     category
+  relationship:   category
+  race:           category
+  sex:            category
+  capital-gain:   int
+  capital-loss:   int
+  hours-per-week: int
+  native-country: category
+  # Other features to be inserted
+  income:         target  # DO NOT CHANGE THE VALUE, NAME CORRECTLY THE TARGET VARIABLE
+
+pandas_load_kwargs:
+  na_values: [ ' ?' ]
+  header:
+
+dataset_class: # DO NOT CHANGE
+  _target_: CMC_utils.datasets.SupervisedTabularDatasetTorch # DO NOT CHANGE
+  _convert_: all # DO NOT CHANGE

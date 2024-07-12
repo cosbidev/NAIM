@@ -1,0 +1,39 @@
+name: auc
+init:
+  _target_: CMC_utils.metrics.AUC
+
+  average:
+  # If None, the scores for each class are returned. Otherwise, this determines the type of averaging performed on the data. Note: multiclass ROC AUC currently only handles the ‘macro’ and ‘weighted’ averages. For multiclass targets, average=None is only implemented for multi_class='ovr' and average='micro' is only implemented for multi_class='ovo'.
+  # {‘micro’, ‘macro’, ‘samples’, ‘weighted’} or None, default=’macro’
+  # - 'micro':
+  # Calculate metrics globally by considering each element of the label indicator matrix as a label.
+  # - 'macro':
+  # Calculate metrics for each label, and find their unweighted mean. This does not take label imbalance into account.
+  # - 'weighted':
+  # Calculate metrics for each label, and find their average, weighted by support (the number of true instances for each label).
+  # - 'samples':
+  # Calculate metrics for each instance, and find their average.
+  # Will be ignored when y_true is binary.
+
+  sample_weight:
+  # Sample weights.
+  # array-like of shape (n_samples,), default=None
+
+  max_fpr:
+  # If not None, the standardized partial AUC [2] over the range [0, max_fpr] is returned. For the multiclass case, max_fpr, should be either equal to None or 1.0 as AUC ROC partial computation currently is not supported for multiclass.
+  # float > 0 and <= 1, default=None
+
+  multi_class: ovr
+  # Only used for multiclass targets. Determines the type of configuration to use. The default value raises an error, so either 'ovr' or 'ovo' must be passed explicitly.
+  # {‘raise’, ‘ovr’, ‘ovo’}, default=’raise’
+  # - 'ovr':
+  # Stands for One-vs-rest. Computes the AUC of each class against the rest [3] [4]. This treats the multiclass case in the same way as the multilabel case. Sensitive to class imbalance even when average == 'macro', because class imbalance affects the composition of each of the ‘rest’ groupings.
+  # - 'ovo':
+  # Stands for One-vs-one. Computes the average AUC of all possible pairwise combinations of classes [5]. Insensitive to class imbalance when average == 'macro'.
+
+  # labels:
+  # array-like of shape (n_classes,), default=None
+  # Only used for multiclass targets. List of labels that index the classes in y_score. If None, the numerical or lexicographical order of the labels in y_true is used.
+
+set_params_function:
+  _target_: CMC_utils.miscellaneous.do_nothing

@@ -1,0 +1,51 @@
+name: FTTransformer
+framework: torch
+model_type: tabular
+
+model_tasks:
+  - classification
+
+label_types:
+  - binary
+  - categorical
+
+set_params_function:
+  _target_: CMC_utils.models.set_fttransformer_params
+
+init_params:
+  _target_: CMC_utils.models.FTTransformer
+  _convert_: all
+
+  cat_idxs:
+
+  categories:
+
+  num_continuous:
+
+  dim: 32
+
+  dim_out:
+
+  depth: 6
+
+  heads: 8
+
+  attn_dropout: 0.1
+
+  ff_dropout: 0.1
+
+fit_params: {}
+
+train_function:
+  _target_: CMC_utils.models.train_torch_model
+
+test_function:
+  _target_: CMC_utils.models.test_torch_model
+
+save_function:
+  _target_: CMC_utils.save_load.save_model
+
+file_extension: pth
+
+load_function:
+  _target_: CMC_utils.save_load.load_model

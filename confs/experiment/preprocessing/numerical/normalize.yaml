@@ -1,0 +1,4 @@
+method: normalize
+axis: 0
+
+all_columns: False
