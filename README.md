@@ -17,7 +17,7 @@
 <img src="./images/NAIM.svg" width="800" style="display: block; margin: 0 auto">
 </p>
 
-This document describes the implementation of *``Not Another Imputation Method´´* (NAIM) in Pytorch. 
+This document describes the implementation of *``Not Another Imputation Method´´* ([NAIM](https://arxiv.org/abs/2407.11540)) in Pytorch. 
 NAIM is an architecture specifically designed for the analysis of tabular data, with a focus on addressing missing values in 
 tabular data without the need for any imputation strategy.
 
