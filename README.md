@@ -322,7 +322,7 @@ More specifically, for each fold there are 3 files reporting the predictions for
 ---
 # Contact <div id='contact'/>
 
-For any questions, please contact [camillomaria.caruso@unicampus.it](mailto:camillomaria.caruso@unicampus.it).
+For any questions, please contact [camillomaria.caruso@unicampus.it](mailto:camillomaria.caruso@unicampus.it) and [valerio.guarrasi@unicampus.it](mailto:valerio.guarrasi@unicampus.it).
 
 ---
 
