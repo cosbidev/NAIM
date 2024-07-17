@@ -329,12 +329,14 @@ For any questions, please contact [camillomaria.caruso@unicampus.it](mailto:cami
 # Citation <div id='citation'/>
 
 ```bibtex
-@article{,
-    title   = {Not Another Imputation Method: A Deep Learning Approach for Missing Values in Tabular Datasets},
-    author  = {Camillo Maria Caruso and Paolo Soda and Valerio Guarrasi},
-    journal = {ArXiv},
-    year    = {2024},
-    volume  = {abs/}
+@misc{caruso2024imputationmethodtransformerbasedmodel,
+      title={Not Another Imputation Method: A Transformer-based Model for Missing Values in Tabular Datasets}, 
+      author={Camillo Maria Caruso and Paolo Soda and Valerio Guarrasi},
+      year={2024},
+      eprint={2407.11540},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/2407.11540}, 
 }
 ```
 
