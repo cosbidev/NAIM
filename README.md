@@ -1,5 +1,5 @@
 # NAIM 
-
+[![arXiv](https://img.shields.io/badge/arXiv-2407.11540-b31b1b.svg)](https://arxiv.org/abs/2407.11540)
 ---
 
 1. [Installation](#installation)
