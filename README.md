@@ -1,5 +1,5 @@
 # NAIM 
-[![arXiv](https://img.shields.io/badge/arXiv-2407.11540-b31b1b.svg)](https://arxiv.org/abs/2407.11540)
+[![DOI](https://img.shields.io/badge/DOI-10.1016/j.aiopen.2026.02.005-blue.svg)](https://doi.org/10.1016/j.aiopen.2026.02.005)
 ---
 
 1. [Installation](#installation)
